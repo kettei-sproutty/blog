@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-family: 'JetBrains Mono';
+	font-style: normal;
+	font-weight: 100 800;
+	src: url('/JetBrainsMono-VariableFont_wght.ttf') format('truetype');
+}
+
+@theme {
+	--font-mono: 'Jetbrains Mono', 'sans-serif';
+
+	--color-rosewater: hsl(10, 58%, 90%);
+	--color-flamingo: hsl(0, 58%, 86%);
+	--color-pink: hsl(316, 74%, 85%);
+	--color-mauve: hsl(267, 83%, 80%);
+	--color-red: hsl(351, 74%, 73%);
+	--color-maroon: hsl(355, 71%, 77%);
+	--color-peach: hsl(21, 86%, 73%);
+	--color-yellow: hsl(40, 70%, 78%);
+	--color-green: hsl(105, 48%, 72%);
+	--color-teal: hsl(171, 47%, 69%);
+	--color-sky: hsl(189, 59%, 73%);
+	--color-sapphire: hsl(199, 66%, 69%);
+	--color-blue: hsl(220, 83%, 75%);
+	--color-lavender: hsl(234, 82%, 85%);
+	--color-text: hsl(227, 68%, 88%);
+	--color-subtext1: hsl(228, 39%, 80%);
+	--color-subtext0: hsl(227, 27%, 72%);
+	--color-overlay2: hsl(228, 20%, 65%);
+	--color-overlay1: hsl(228, 15%, 57%);
+	--color-overlay0: hsl(230, 12%, 49%);
+	--color-surface2: hsl(230, 14%, 41%);
+	--color-surface1: hsl(231, 16%, 34%);
+	--color-surface0: hsl(230, 19%, 26%);
+	--color-base: hsl(232, 23%, 18%);
+	--color-mantle: hsl(233, 23%, 15%);
+	--color-crust: hsl(236, 23%, 12%);
+}
