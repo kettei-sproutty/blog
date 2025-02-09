@@ -45,7 +45,6 @@
 	let list = $state<HTMLUListElement>();
 
 	const fuse = new Fuse(elements, { keys, useExtendedSearch: true });
-
 	const result = $derived(fuse.search(search || '!1234567890$'));
 
 	onMount(() => {
@@ -141,7 +140,7 @@
 				{/each}
 			</ul>
 		</div>
-		{#if previewItem && result[selected]?.item[previewItem]}
+		{#if previewItem}
 			<div class="border-text bg-base bg-mantle hidden w-full max-w-md self-center border md:block">
 				<div class="h-8 border-b py-1 text-center">Preview</div>
 				<div class="h-[80dvh] overflow-hidden">{result[selected]?.item[previewItem]}</div>
