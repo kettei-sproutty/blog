@@ -43,6 +43,7 @@
 	let isOpen = $state(false);
 
 	let list = $state<HTMLUListElement>();
+	let input = $state<HTMLInputElement>();
 
 	const fuse = new Fuse(elements, { keys, useExtendedSearch: true });
 	const result = $derived(fuse.search(search || '!1234567890$'));
@@ -58,6 +59,10 @@
 		const handleNavigation = (event: KeyboardEvent) => {
 			if (!isOpen) return;
 			if (!result.length) return;
+			if (input && document.activeElement !== input) {
+				input.focus();				
+			}
+			
 			if (event.key === 'ArrowDown') {
 				event.preventDefault();
 				let index = Math.min(selected + 1, result.length - 1);
@@ -82,12 +87,14 @@
 			if ('detail' in event) {
 				search = '';
 				isOpen = (event as CustomEvent<{ open: boolean }>).detail.open;
+				selected = 0;
 			}
 		};
 
 		const handleClose = () => {
 			isOpen = false;
 			search = '';
+			selected = 0;
 		};
 
 		window.addEventListener(getEventName(id), handleOpenStatus);
@@ -118,9 +125,9 @@
 		<div class="border-text bg-base bg-mantle w-full max-w-md self-center border">
 			<div class="relative">
 				<input
+					bind:this={input}
 					bind:value={search}
 					class="border-text h-8 w-full cursor-text border-b px-2 py-1 text-sm focus:outline-none"
-					autofocus
 				/>
 				<span class="absolute right-0 text-xs"
 					>{result.length ? selected + 1 : 0}/{result.length}</span
@@ -131,12 +138,12 @@
 				class="overscroll-scroll relative flex h-[80dvh] flex-col gap-2 overflow-hidden"
 			>
 				{#each result as item, index}
-					<div
+					<li
 						data-selected={index === selected}
 						class="data-[selected=true]:bg-text/90 flex flex-col gap-1 px-2 py-1 data-[selected=true]:text-base"
 					>
 						{@render listItem(item)}
-					</div>
+					</li>
 				{/each}
 			</ul>
 		</div>
