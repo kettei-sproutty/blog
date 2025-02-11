@@ -3,8 +3,7 @@
 	import Fuse, { type FuseResult } from 'fuse.js';
 	import { FuzzyId } from '$lib';
 
-	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-	export interface FuzzyFinderProps<T extends {} = {}> {
+	export interface FuzzyFinderProps<T extends { id: string }> {
 		/** The unique id of the fuzzy finder modal
 		 * used for handling the open status */
 		id: FuzzyId;
@@ -36,7 +35,7 @@
 </script>
 
 <script lang="ts">
-	let { id, elements, keys, listItem, previewItem }: FuzzyFinderProps = $props();
+	let { id, elements, keys, listItem, previewItem }: FuzzyFinderProps<{ id: string }> = $props();
 
 	let search = $state('');
 	let selected = $state(0);
@@ -127,6 +126,9 @@
 				<input
 					bind:this={input}
 					bind:value={search}
+					aria-expanded="true"
+					aria-controls="{id}-panel"
+					aria-activedescendant="{id}-{selected.toString()}"
 					class="border-text h-8 w-full cursor-text border-b px-2 py-1 text-sm focus:outline-none"
 				/>
 				<span class="absolute right-0 text-xs"
@@ -135,11 +137,13 @@
 			</div>
 			<ul
 				bind:this={list}
+				id="{id}-panel"
 				class="overscroll-scroll relative flex h-[80dvh] flex-col gap-2 overflow-hidden"
 			>
 				{#each result as item, index}
 					<li
 						data-selected={index === selected}
+						id="{id}-{index.toString()}"
 						class="data-[selected=true]:bg-text/90 flex flex-col gap-1 px-2 py-1 data-[selected=true]:text-base"
 					>
 						{@render listItem(item)}
